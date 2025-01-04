@@ -9,7 +9,7 @@ This project implements Shor's 9-qubit error correction code, a quantum error-co
 ## Circuit Diagram
 ![Shor's Code Circuit](./examples/shor_circuit.png)
 
-## Results
+## Example Results
 ![Error Correction Example Results](./examples/results.png)
 
 ## Features
