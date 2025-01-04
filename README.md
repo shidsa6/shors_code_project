@@ -7,7 +7,7 @@ Shidsa Pourbakhsh (2025)
 This project implements Shor's 9-qubit error correction code, a quantum error-correcting code capable of correcting both bit-flip and phase-flip errors. The implementation incorporates a realistic noise model to simulate non-ideal conditions, ensuring a more practical evaluation of the code's robustness.
 
 ## Circuit Diagram
-![Shor's Code Circuit](./examples/circuit.png)
+![Shor's Code Circuit](./examples/shor_circuit.png)
 
 ## Results
 ![Error Correction Example Results](./examples/results.png)
