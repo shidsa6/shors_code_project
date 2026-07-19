@@ -15,15 +15,16 @@ This project implements Shor's 9-qubit error correction code, a quantum error-co
 ## Features
 - **Encoding:** Encodes a logical qubit into 9 physical qubits to protect against bit-flip and phase-flip errors.
 - **Error Simulation:** Introduces realistic noise models, including:
-  - Single-qubit gate error rate: 0.01%
-  - Two-qubit gate error rate: 0.1%
+  - Single-qubit gate error rate: 0.1%
+  - Two-qubit gate error rate: 1%
   - Depolarizing noise on single and two-qubit gates.
 - **Decoding:** Corrects errors and restores the logical qubit.
-- **Success Rates:**
-  - No error: ~98% success (>7800/8192 correct measurements)
-  - Bit-flip errors: ~95% success (>7500/8192 correct measurements)
-  - Phase-flip errors: ~90% success (>6500/8192 correct measurements)
-  - Combined errors: ~85% success (>6000/8192 correct measurements)
+- **Success Rates** (measured, 8192 shots per case - expect some run-to-run
+  variance since this is a probabilistic simulation):
+  - No error: ~95% success
+  - Bit-flip errors: ~96% success
+  - Phase-flip errors: ~89% success
+  - Combined errors: ~89% success
 - **Testing:** Comprehensive unit tests for each module.
 - **Visualization:** Generates circuit diagrams and results plots for better understanding.
 
@@ -127,7 +128,10 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 3. Qiskit Documentation - Error Correction
 
 ## Observations
-1. Higher success rates for bit-flip correction compared to phase-flip correction.
-2. Performance degrades slightly with combined errors as expected.
+1. Bit-flip correction and no-error preservation perform similarly, both
+   noticeably better than phase-flip correction.
+2. Combined (bit + phase) errors do not measurably degrade success further
+   than phase-flip alone at this noise level - phase-flip correction is the
+   dominant source of residual error.
 3. Noise model provides more realistic results than ideal simulation.
 4. Circuit depth impacts error accumulation.

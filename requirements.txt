@@ -5,3 +5,5 @@ matplotlib>=3.7.0
 numpy>=1.22.0
 pytest>=7.0.0
 scipy>=1.7.0  # Added for statistical analysis
+pylatexenc>=2.10  # Required by circuit_drawer(output='mpl') in src/visualize.py -
+                   # without it, main.py silently fails to save shor_circuit.png

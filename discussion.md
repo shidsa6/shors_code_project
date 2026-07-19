@@ -13,23 +13,26 @@ This implementation demonstrates Shor's 9-qubit quantum error correction code wi
 
 ### Noise Model
 We implemented a realistic but minimal noise model with:
-- Single-qubit gate error rate: 0.01% (p1 = 0.0001)
-- Two-qubit gate error rate: 0.1% (p2 = 0.001)
+- Single-qubit gate error rate: 0.1% (p1 = 0.001)
+- Two-qubit gate error rate: 1% (p2 = 0.01)
 - Depolarizing noise on:
   - Single-qubit gates (X, H, Z)
   - Two-qubit gates (CNOT)
 
 ## Results
 
-### Success Rates
-- No error: ~98% success (>7800/8192 correct measurements)
-- Bit-flip errors: ~95% success (>7500/8192 correct measurements)
-- Phase-flip errors: ~90% success (>6500/8192 correct measurements)
-- Combined errors: ~85% success (>6000/8192 correct measurements)
+### Success Rates (measured, 8192 shots per case)
+- No error: ~95% success
+- Bit-flip errors: ~96% success
+- Phase-flip errors: ~89% success
+- Combined errors: ~89% success
 
 ### Key Observations
-1. Higher success rates for bit-flip correction compared to phase-flip correction
-2. Performance degrades slightly with combined errors as expected
+1. Bit-flip correction and no-error preservation perform similarly, both
+   noticeably better than phase-flip correction
+2. Combined (bit + phase) errors do not measurably degrade success further
+   than phase-flip alone at this noise level - phase-flip correction is the
+   dominant source of residual error
 3. Noise model provides more realistic results than ideal simulation
 4. Circuit depth impacts error accumulation
 
@@ -39,7 +42,7 @@ We implemented a realistic but minimal noise model with:
 - First level: Three-qubit replication for phase protection
 - Hadamard transformations for basis change
 - Second level: Bit-flip protection within blocks
-- Total gates: 11 (6 CNOT + 3 Hadamard + 2 barrier)
+- Total gates: 11 (8 CNOT + 3 Hadamard, no barriers)
 
 ### Decoding
 - Bit-flip syndrome measurement and correction
