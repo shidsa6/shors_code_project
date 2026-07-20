@@ -5,3 +5,6 @@ __pycache__/
 *.pyd
 .Python
 .DS_Store
+
+# Virtual environment
+venv/

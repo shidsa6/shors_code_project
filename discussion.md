@@ -13,8 +13,8 @@ This implementation demonstrates Shor's 9-qubit quantum error correction code wi
 
 ### Noise Model
 We implemented a realistic but minimal noise model with:
-- Single-qubit gate error rate: 0.1% (p1 = 0.001)
-- Two-qubit gate error rate: 1% (p2 = 0.01)
+- Single-qubit gate error rate: 0.1% ($p_1 = 0.001$)
+- Two-qubit gate error rate: 1% ($p_2 = 0.01$)
 - Depolarizing noise on:
   - Single-qubit gates (X, H, Z)
   - Two-qubit gates (CNOT)

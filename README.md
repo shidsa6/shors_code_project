@@ -6,11 +6,33 @@ Shidsa Pourbakhsh (2025)
 ## Overview
 This project implements Shor's 9-qubit error correction code, a quantum error-correcting code capable of correcting both bit-flip and phase-flip errors. The implementation incorporates a realistic noise model to simulate non-ideal conditions, ensuring a more practical evaluation of the code's robustness.
 
+## The problem, in plain terms
+A single qubit is fragile. Stray interactions with the environment, heat, stray fields, imperfect gates, can flip its state or scramble its phase at almost any moment, and there is no way to just "back it up" the way you would a classical bit: the no-cloning theorem says you cannot copy an unknown quantum state onto a spare qubit and keep the original around as insurance. So if you want to protect one logical qubit's worth of information, you cannot rely on redundancy in the ordinary sense, you need a cleverer trick.
+
+Shor's 9-qubit code is that trick. It spreads a single logical qubit's information across 9 physical qubits, arranged as three groups of three, in a pattern that protects against both of the two basic ways a qubit can go wrong: a bit-flip (its 0/1 value flips) and a phase-flip (its relative phase flips), including both happening on the same qubit at once. If noise corrupts any single one of those 9 qubits, the redundancy built into the pattern is enough to work out exactly which qubit was hit and how, and undo it, all without ever directly measuring the fragile quantum information itself (a direct measurement would collapse it and destroy the very state you are trying to protect). The code is not magic: it only guarantees recovery from one error at a time, on one physical qubit. If two of the nine qubits are corrupted simultaneously, the code is not designed to reliably recover from that.
+
 ## Circuit Diagram
 ![Shor's Code Circuit](./examples/shor_circuit.png)
 
 ## Example Results
 ![Error Correction Example Results](./examples/results.png)
+
+## Per-Qubit Error Correction Check
+![Per-Qubit Recovery Fidelity](./examples/per_qubit_error_correction.png)
+
+The plot above shows a different thing than the noise-model success rates
+below: instead of one aggregate success rate per error type, it checks the
+code qubit by qubit. Using the ideal, noiseless case (`Statevector.from_instruction`,
+no `AerSimulator` noise model involved), a logical |0> was encoded, a single
+bit-flip, phase-flip, or combined error was injected on each of the 9
+physical qubits one at a time, the state was decoded, and the fidelity of
+the recovered logical qubit (qubit 0, traced out from the other 8) was
+measured against the expected |0>. All 27 combinations (9 qubits x 3 error
+types) came back at 100.00% fidelity, average, min, and max all 100.00%,
+with no outliers. This confirms the code recovers correctly regardless of
+which of the 9 physical qubits is hit or which of the two error types
+occurs, not just for the specific error patterns shown in the aggregate
+noise-model results below.
 
 ## Features
 - **Encoding:** Encodes a logical qubit into 9 physical qubits to protect against bit-flip and phase-flip errors.
@@ -34,6 +56,7 @@ shors_code_project/
 ├── examples/
 │   ├── circuit.png       # Visual representation of the circuit
 │   ├── results.png       # Example simulation results
+│   ├── per_qubit_error_correction.png  # Per-qubit, per-error-type fidelity grid
 ├── src/
 │   ├── encode.py         # Encoding logic
 │   ├── decode.py         # Decoding logic
